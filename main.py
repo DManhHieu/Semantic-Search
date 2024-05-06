@@ -6,7 +6,7 @@ from auth import checkAPIKey
 load_dotenv()
 app = FastAPI(
     title="Semantic search",
-    description="Using SentenceTransformers and FastAPI for senmatic searching articles(title and description)",
+    description="Using SentenceTransformers and FastAPI for semantic searching articles(title and description)",
     version="1.0.0"
 )
 
