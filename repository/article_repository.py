@@ -1,10 +1,15 @@
-embbeds = []
+ariticleEmbeddeds = []
 
-def getArticleEmbbed(tags):
-    return embbeds
-def saveArticleEmbbed(id, embbed):
-    embbeds.append((id,embbed))
+def getArticleEmbedded(tags):
+    ids = []
+    embedded = []
+    for (id,em) in ariticleEmbeddeds:
+        ids.append(id)
+        embedded.append(em)
+    return ids,embedded
+def saveArticleEmbedded(id, embeded):
+    ariticleEmbeddeds.append((id,embeded))
     return id
-def deleteArticleEmbbed(id):
-    embbeds.remove(id)
+def deleteArticleEmbedded(id):
+    ariticleEmbeddeds.remove(id)
     return True
