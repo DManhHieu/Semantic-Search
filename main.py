@@ -1,11 +1,19 @@
 from fastapi import FastAPI
+import os
 from model.article_model import ArticleModel
 from service.article_service import ArticleService
+from sentence_transformers import SentenceTransformer
 app = FastAPI()
-articleService = ArticleService()
+from dotenv import load_dotenv
+
+load_dotenv()
+model_name = os.getenv('SENTENCE_MODEL_NAME')
+sentenceModel = SentenceTransformer(model_name)
+
+articleService = ArticleService(sentenceModel)
 
 @app.get("/search/")
-async def search(query: str, top: int, minScore: float, tags: list):
+async def search(query: str, top: int = 10, minScore: float = 0.2, tags: list = None):
     return articleService.search(query,minScore,top,tags)
 
 @app.post("/article/")
