@@ -1,10 +1,7 @@
 from sentence_transformers import SentenceTransformer, util
 from repository.article_repository import getArticleEmbedded,saveArticleEmbedded, deleteArticleEmbedded
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
+from dto.search_response import SearchResponse
 def filterScore(score, point):
     if score['score'] <= point:
         return False
@@ -32,11 +29,11 @@ class ArticleService:
     def search(self, text,minscore = 0.2,top_k = 10, tags=None):
         article_ids, embeddeds =  getArticleEmbedded(tags)
         if len(embeddeds) == 0 :
-            return None
+            return []
         scores = self.compute_scores(text, embeddeds,top_k)
         scores = scores[0]
         scores = filter(lambda x:  filterScore(x,minscore),scores)
-        return [{"score" : score['score'],"article_id" : article_ids[score['corpus_id']]} for score in scores]
+        return [SearchResponse( score['score'], article_ids[score['corpus_id']]) for score in scores]
 
     def delete(id):
-        deleteArticleEmbedded(id)
+        return deleteArticleEmbedded(id)

@@ -1,18 +1,17 @@
-from fastapi import FastAPI
-from dto.article_dto import ArticleDTO
-from service.article_service import ArticleService
-from dto.query_dto import QueryDTO
-app = FastAPI()
-articleService = ArticleService()
+from fastapi import FastAPI, Depends
+from routers import article_router
+from dotenv import load_dotenv
+from auth import checkAPIKey
 
-@app.post("/search/")
-async def search(query : QueryDTO):
-    return articleService.search(query.query,query.minScore,query.top,query.tags)
+load_dotenv()
+app = FastAPI(
+    title="Semantic search",
+    description="Using SentenceTransformers and FastAPI for senmatic searching aricles(title and description)",
+    version="1.0.0"
+)
 
-@app.post("/article/")
-async def encode(article: ArticleDTO):
-    return articleService.saveArticleEmbedded(article.id,article.title,article.description)
-
-@app.delete("/article/{id}")
-async def delete(id: int):
-    return articleService.delete(id)
+app.include_router(
+    article_router.router,
+    prefix="/api/v1",
+    dependencies=[Depends(checkAPIKey)]
+)
