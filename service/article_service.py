@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer, util
 from repository.article_repository import getArticleEmbedded,saveArticleEmbedded, deleteArticleEmbedded
-from model.article_model import ArticleModel
+from dto.article_dto import ArticleModel
 import os
 from dotenv import load_dotenv
 
@@ -26,9 +26,9 @@ class ArticleService:
         encode_value = self.sentenceEncode(text)
         return util.semantic_search(encode_value,embeddings,top_k=top_k)
 
-    def saveArticleEmbedded(self, article: ArticleModel):
-        articleVector = self.encodeArticle(article.title, article.description)
-        return saveArticleEmbedded(article.id,articleVector)
+    def saveArticleEmbedded(self, id, title, description):
+        articleVector = self.encodeArticle(title, description)
+        return saveArticleEmbedded(id,articleVector)
         
     def search(self, text,minscore = 0.2,top_k = 10, tags=None):
         article_ids, embeddeds =  getArticleEmbedded(tags)
