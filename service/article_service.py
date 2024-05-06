@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer, util
 from repository.article_repository import getArticleEmbedded,saveArticleEmbedded, deleteArticleEmbedded
-from dto.article_dto import ArticleModel
 import os
 from dotenv import load_dotenv
 
