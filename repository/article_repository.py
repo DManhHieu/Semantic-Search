@@ -1,10 +1,10 @@
-embbed = []
+embbeds = []
 
 def getArticleEmbbed(tags):
-    return embbed
+    return embbeds
 def saveArticleEmbbed(id, embbed):
-    embbed.append((id,embbed))
+    embbeds.append((id,embbed))
     return id
 def deleteArticleEmbbed(id):
-    embbed.remove(id)
+    embbeds.remove(id)
     return True
