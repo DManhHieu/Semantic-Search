@@ -5,5 +5,4 @@ class ArticleDTO(BaseModel):
     id: int
     title: str 
     description: str 
-    content: str
     tags: list = None
