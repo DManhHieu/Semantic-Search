@@ -13,7 +13,13 @@ async def search(query : QueryDTO):
 
 @router.post("/article/")
 async def encode(article: ArticleDTO):
-    return articleService.saveArticleEmbedding(article.id,article.title,article.description, article.tags)
+    return articleService.saveArticleEmbedding(
+        article.id,
+        article.title,
+        article.description,
+        article.content, 
+        article.tags
+        )
 
 @router.delete("/article/{id}")
 def delete(id: int):
