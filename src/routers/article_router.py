@@ -7,14 +7,14 @@ articleService = ArticleService()
 
 router = APIRouter()
 
-@router.post("/article/search/", response_model=list[SearchResponse])
+@router.post("/article/search/", response_model=SearchResponse)
 async def search(query : QueryDTO):
-    return articleService.search(query.query,query.minScore,query.top,query.tags)
+    return articleService.search(query.query,query.minScore,query.page,query.size,query.tags)
 
 @router.post("/article/")
 async def encode(article: ArticleDTO):
-    return articleService.saveArticleEmbedded(article.id,article.title,article.description)
+    return articleService.saveArticleEmbedding(article.id,article.title,article.description, article.tags)
 
 @router.delete("/article/{id}")
-async def delete(id: int):
+def delete(id: int):
     articleService.delete(id)

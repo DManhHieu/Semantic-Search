@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from routers import article_router
 from dotenv import load_dotenv
-from auth import checkAPIKey
+from security.auth import checkAPIKey
 
 load_dotenv()
 app = FastAPI(
