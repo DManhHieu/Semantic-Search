@@ -17,7 +17,6 @@ async def encode(article: ArticleDTO):
         article.id,
         article.title,
         article.description,
-        article.content, 
         article.tags
         )
 

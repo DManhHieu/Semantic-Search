@@ -16,15 +16,15 @@ class ArticleService:
     def sentenceEncode(sefl, text):
         return sefl.sentenceModel.encode(text, convert_to_tensor=True)
     
-    def encodeArticle(sefl, title, description, content):
-        return sefl.sentenceEncode(title + "[SEP]" +  description + "[SEP]" +  content)
+    def encodeArticle(sefl, title, description):
+        return sefl.sentenceEncode(title + "[SEP]" +  description )
 
     def compute_scores(self, text, embeddings,top_k):
         encode_value = self.sentenceEncode(text)
         return util.semantic_search(encode_value,embeddings,top_k=top_k)
 
-    def saveArticleEmbedding(self, id, title, description , content , tags):
-        embedding = self.encodeArticle(title, description, content)
+    def saveArticleEmbedding(self, id, title, description , tags):
+        embedding = self.encodeArticle(title, description)
         return saveOrUpdate(id,embedding, tags)
         
     def search(self, text,minscore,page, size, tags = None):
